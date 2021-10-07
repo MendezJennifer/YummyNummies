@@ -69,3 +69,21 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*Change logo size*/
+.logo{
+    width:80px;
+}
+/*Change Navigation Bar color*/
+.navbar-dark, a.navbar-brand, .footer{
+    background-color: #8BC34A;
+}
+
+/*Change Table Colors*/
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: #FFEB3B;
+}
+/*Make photos smaller*/
+.smallPhoto{
+    width:200px;
+}

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using YummyNummies.Data;
 using YummyNummies.Models;
+using System.IO;
 
 namespace YummyNummies.Controllers
 {
@@ -57,10 +59,16 @@ namespace YummyNummies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,Photo,UserId,CategoryId")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,UserId,CategoryId")] Recipe recipe, IFormFile Photo)
         {
             if (ModelState.IsValid)
             {
+                // Save photos (if available)
+                if (Photo != null)
+                {
+                    var photoName = UploadPhoto(Photo);
+                    recipe.Photo = photoName;
+                }
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +99,7 @@ namespace YummyNummies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,Photo,UserId,CategoryId")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,UserId,CategoryId")] Recipe recipe, IFormFile Photo)
         {
             if (id != recipe.RecipeId)
             {
@@ -102,6 +110,13 @@ namespace YummyNummies.Controllers
             {
                 try
                 {
+                    // Save photos (if available)
+                    if (Photo != null)
+                    {
+                        var photoName = UploadPhoto(Photo);
+                        recipe.Photo = photoName;
+                    }
+
                     _context.Update(recipe);
                     await _context.SaveChangesAsync();
                 }
@@ -155,6 +170,27 @@ namespace YummyNummies.Controllers
         private bool RecipeExists(int id)
         {
             return _context.Recipes.Any(e => e.RecipeId == id);
+        }
+
+        //Upload photos
+        private static string UploadPhoto(IFormFile Photo)
+        {
+            //Temporary location of uploaded photo
+            var fileLoc = Path.GetTempFileName();
+
+            //Unique file name
+            var photoName = Guid.NewGuid() + "-" + Photo.FileName;
+
+            //Dynamic destination path
+            var destPath=System.IO.Directory.GetCurrentDirectory()+ "\\wwwroot\\img\\recipes\\" + photoName;
+
+            //Create file copy
+            using (var stream = new FileStream(destPath, FileMode.Create))
+            {
+                Photo.CopyTo(stream);
+            }
+
+            return photoName;
         }
     }
 }

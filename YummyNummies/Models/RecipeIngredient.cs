@@ -18,8 +18,7 @@ namespace YummyNummies.Models
 
         //Quantity Conditions: required, quantity between 0-100
         [Required]
-        [Range(0.1, 100)]
-        public double Quantity { get; set; }
+        public string Quantity { get; set; }
 
         //Foreign key
         [Required]
