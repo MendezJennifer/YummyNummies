@@ -9,6 +9,12 @@
 <p>
     <a asp-action="Create">Add Recipe</a>
 </p>
+<!--Search Bar-->
+<form asp-controller="Recipes" asp-action="Index">
+        <input type="text" name="SearchInfo" placeholder="Search Recipe" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+</form>
+
 <table class="table table-striped table-hover sortable">
     <thead>
         <tr>

@@ -22,9 +22,15 @@ namespace YummyNummies.Controllers
         }
 
         // GET: Recipes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchInfo)
         {
             var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
+            
+            //Search Bar
+            if (!String.IsNullOrEmpty(SearchInfo))
+            {
+                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.Name.Contains(SearchInfo));
+            }
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -192,5 +198,6 @@ namespace YummyNummies.Controllers
 
             return photoName;
         }
+
     }
 }
