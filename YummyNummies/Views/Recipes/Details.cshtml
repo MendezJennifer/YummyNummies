@@ -20,6 +20,7 @@
         </dt>
         <dd class="col-sm-10">
             <!--@Html.DisplayFor(model => model.Photo)-->
+            <!--Display recipe photo (if any)-->
             @if (Model.Photo != null)
             {
                 <img src="~/img/recipes/@Model.Photo" alt="Recipe Photo" class="medPhoto" />

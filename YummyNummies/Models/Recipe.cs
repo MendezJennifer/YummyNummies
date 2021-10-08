@@ -22,8 +22,8 @@ namespace YummyNummies.Models
         [Range(0, 5)]
         public int Rating { get; set; }
 
-        //FirstName Conditions: no empty strings
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the user's first name")]
+        //UserName Conditions: no empty strings
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the username")]
         public string UserName { get; set; }
 
         //CookTime Conditions: required, rating between 0-9999

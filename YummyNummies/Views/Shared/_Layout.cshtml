@@ -38,7 +38,18 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="RecipeIngredients" asp-action="Index">Recipe Ingredients</a>
                         </li>
                     </ul>
+
                     <partial name="_LoginPartial" />
+
+                    <!--Search Bar-->
+                    <form asp-controller="Recipes" asp-action="Index">
+                        <div class="input-group">
+                            <input type="text" name="SearchInfo" placeholder="Search Recipe" class="form-control" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"> Search</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>

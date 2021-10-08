@@ -9,17 +9,13 @@
 <p>
     <a asp-action="Create">Add Recipe</a>
 </p>
-<!--Search Bar-->
-<form asp-controller="Recipes" asp-action="Index">
-        <input type="text" name="SearchInfo" placeholder="Search Recipe" />
-        <input type="submit" value="Search" class="btn btn-primary" />
-</form>
 
+<!--Sortable Table-->
 <table class="table table-striped table-hover sortable">
     <thead>
         <tr>
             <th class="sorttable_nosort">
-                <!--Photo-->
+                <!--Photo (not sortable)-->
             </th>
             <th>
                 <a href="#">Name</a>
@@ -40,6 +36,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                <!--Display REcipe Photo (if any)-->
                 @if (item.Photo != null)
                 {
                     <img src="~/img/recipes/@item.Photo" alt="Recipe Photo" class="smallPhoto" />
