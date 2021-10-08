@@ -24,7 +24,7 @@ namespace YummyNummies.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Recipes.Include(r => r.Category);
+            var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
             return View(await applicationDbContext.ToListAsync());
         }
 

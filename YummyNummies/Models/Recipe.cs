@@ -31,9 +31,10 @@ namespace YummyNummies.Models
         [Range(0, 9999)]
         public int CookTime { get; set; }
 
-        //Step Conditions: no empty strings, min # of chars=100
+        //Step Conditions: no empty strings, min # of chars=100, set datatype to multiline text
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the recipe steps")]
         [MinLength(100)]
+        [DataType(DataType.MultilineText)]
         public string Steps { get; set; }
 
         public string Photo { get; set; }

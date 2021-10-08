@@ -22,7 +22,7 @@ namespace YummyNummies.Controllers
         // GET: RecipeIngredients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.RecipeIngredients.Include(r => r.Ingredient).Include(r => r.Recipe);
+            var applicationDbContext = _context.RecipeIngredients.Include(r => r.Ingredient).Include(r => r.Recipe).OrderBy(r => r.Ingredient);
             return View(await applicationDbContext.ToListAsync());
         }
 

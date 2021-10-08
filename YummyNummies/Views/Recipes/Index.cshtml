@@ -9,9 +9,12 @@
 <p>
     <a asp-action="Create">Add Recipe</a>
 </p>
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover sortable">
     <thead>
         <tr>
+            <th class="sorttable_nosort">
+                <!--Photo-->
+            </th>
             <th>
                 <a href="#">Name</a>
             </th>
@@ -19,16 +22,7 @@
                 <a href="#">Rating</a>
             </th>
             <th>
-                <a href="#">Creator</a>
-            </th>
-            <th>
                 <a href="#">Cook Time</a>
-            </th>
-            <th>
-                <a href="#">Steps</a>
-            </th>
-            <th>
-                <!--Photo-->
             </th>
             <th>
                 <a href="#">Category</a>
@@ -40,25 +34,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @if (item.Photo != null)
+                {
+                    <img src="~/img/recipes/@item.Photo" alt="Recipe Photo" class="smallPhoto" />
+                }
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CookTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Steps)
-            </td>
-            <td>
-                @if (item.Photo != null)
-                {
-                    <img src="~/img/recipes/@item.Photo" alt="Recipe Photo" class="smallPhoto" />
-                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
