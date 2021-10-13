@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'yummynummies'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87A53FABFD95416297021F4D43D18C1B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E71B1FEAA9E345F7A06D7400D712583B }}
           package: .
