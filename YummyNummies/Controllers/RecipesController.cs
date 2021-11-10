@@ -203,6 +203,7 @@ namespace YummyNummies.Controllers
             return photoName;
         }
 
+        [AllowAnonymous]
         //Search Recipes
         public async Task<IActionResult> Search(string SearchInfo)
         {
