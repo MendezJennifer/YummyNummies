@@ -12,7 +12,7 @@ Blogger Role: Can add recipes, and CRUD only the recipes that this user has adde
 Administrator: Full access to all recipes, and categories (rich@gc.ca, same PW)
 
 NOTE: 
-Google and Facebook authentication are ocnfigure. They do not work on live site due to security requirements, but it does work on local server. 
+Google and Facebook authentication are configured. They do not work on live site due to security requirements, but it does work on local server. 
 
 Site is live at:
 http://jenmen-001-site1.itempurl.com/
