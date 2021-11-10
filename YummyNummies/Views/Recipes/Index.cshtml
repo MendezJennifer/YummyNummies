@@ -1,10 +1,22 @@
 ﻿@model IEnumerable<YummyNummies.Models.Recipe>
 
-@{
+@if (User.IsInRole("Blogger"))
+{
     ViewData["Title"] = "My Recipes";
 }
+@if (User.IsInRole("Administrator"))
+{
+    ViewData["Title"] = "All Recipes";
+}
 
-<h1>My Recipes</h1>
+@if (User.IsInRole("Blogger"))
+{
+    <h1>My Recipes</h1>
+}
+@if (User.IsInRole("Administrator"))
+{
+    <h1>Recipes</h1>
+}
 
 <p>
     <a asp-action="Create">Add Recipe</a>
@@ -29,13 +41,20 @@
             <th>
                 <a href="#">Category</a>
             </th>
+            @if (User.IsInRole("Administrator"))
+            {
+                <th>
+                    <a href="#">Username</a>
+                </th>
+            }
             <th class="sorttable_nosort">
                 <!--CRUD Function Buttons (not sortable)-->
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 <!--Display REcipe Photo (if any)-->
@@ -56,12 +75,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
             </td>
+            @if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+            }
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RecipeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.RecipeId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RecipeId">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
