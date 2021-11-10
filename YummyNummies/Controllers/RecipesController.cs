@@ -26,8 +26,15 @@ namespace YummyNummies.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
+            //If user is an Administrator, show all recipes
             var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
-            applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s=>s.UserName.Equals(User.Identity.Name));
+
+            //If user is a Blogger, only show the recipes for that user
+            if (User.IsInRole("Blogger"))
+            {
+                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.UserName.Equals(User.Identity.Name));
+            }
+                
 
             return View(await applicationDbContext.ToListAsync());
         }
