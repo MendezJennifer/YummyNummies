@@ -1,0 +1,27 @@
+﻿@model IEnumerable<YummyNummies.Models.Recipe>
+
+@{ ViewData["Title"] = "Search All Recipes";
+}
+<h1>Search All Recipes</h1>
+<section class="row card-group">
+    @foreach (var c in Model)
+    {
+        <div class="col-sm-6 col-lg-4 mb-3">
+            <div class="card mb-3 text-center h-100">
+                <div class="card-body">
+                    <h5>
+                        <a asp-area="" asp-controller="Recipes" asp-action="Details" asp-route-id="@c.RecipeId">
+                            @c.Name
+                        </a>
+                    </h5>
+                    @if (c.Photo != null)
+                    {
+                        <img src="~/img/recipes/@c.Photo" alt="Recipe Image" class="smallPhoto" />
+                    }
+                    <h6 class="data-sm">Rating: @c.Rating/5</h6>
+                    <h6>Cooking Time: @c.CookTime min</h6>
+                </div>
+            </div>
+        </div>
+    }
+</section>

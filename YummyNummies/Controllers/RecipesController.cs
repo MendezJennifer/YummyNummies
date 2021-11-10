@@ -24,20 +24,11 @@ namespace YummyNummies.Controllers
         }
 
         // GET: Recipes
-        public async Task<IActionResult> Index(string SearchInfo)
+        public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
-            
-            //filter recipes: only show the user's recipes
             applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s=>s.UserName.Equals(User.Identity.Name));
 
-            //Search Bar
-            //If there is a searchInfo string, filter recipes
-            if (!String.IsNullOrEmpty(SearchInfo))
-            {
-                //Find all the recipes that contain the searchinfo string in the recipe name ANd match the user's id
-                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.Name.Contains(SearchInfo) && s.UserName.Equals(User.Identity.Name));
-            }
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -212,5 +203,19 @@ namespace YummyNummies.Controllers
             return photoName;
         }
 
+        //Search Recipes
+        public async Task<IActionResult> Search(string SearchInfo)
+        {
+            var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
+            
+            //If there is a searchInfo string, filter recipes
+            if (!String.IsNullOrEmpty(SearchInfo))
+            {
+                //Find all the recipes that contain the searchinfo string in the recipe name
+                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.Name.Contains(SearchInfo)).OrderBy(r => r.Name);
+            }
+
+            return View(await applicationDbContext.ToListAsync());
+        }
     }
 }

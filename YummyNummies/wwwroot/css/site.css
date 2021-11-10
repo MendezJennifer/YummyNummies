@@ -98,3 +98,8 @@ body {
 .data-sm {
     margin-top: 10px;
 }
+/*Style Search Bar*/
+.search-bar
+{
+    max-width:180px;
+}

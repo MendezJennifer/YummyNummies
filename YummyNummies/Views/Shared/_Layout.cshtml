@@ -34,14 +34,11 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                             </li>
                         }
-                        @if (User.IsInRole("Blogger"))
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Recipes" asp-action="Index"> My Recipes</a>
                             </li>
-                        }
-                        @if (User.Identity.IsAuthenticated)
-                        {
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Ingredients" asp-action="Index">Ingredients</a>
                             </li>
@@ -54,9 +51,9 @@
                     <partial name="_LoginPartial" />
 
                     <!--Search Bar-->
-                    <form asp-controller="Recipes" asp-action="Index">
+                    <form asp-controller="Recipes" asp-action="Search">
                         <div class="input-group">
-                            <input type="text" name="SearchInfo" placeholder="Search Recipe" class="form-control" />
+                            <input type="text" name="SearchInfo" placeholder="Search Recipe" class="form-control search-bar" />
                             <div class="input-group-btn">
                                 <button class="btn btn-primary" type="submit"> Search</button>
                             </div>
