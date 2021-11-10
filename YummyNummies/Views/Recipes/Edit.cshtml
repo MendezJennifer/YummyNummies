@@ -41,16 +41,12 @@
                 <label asp-for="Photo" class="control-label"></label>
                 <input asp-for="Photo" class="form-control" type="file" />
                 <span asp-validation-for="Photo" class="text-danger"></span>
-                <!--Display REcipe Photos (if any)-->
+                <!--Display Recipe Photos (if any)-->
                 @if (Model.Photo != null)
                 {
-                    <img src="~/img/recipes/@Model.Photo" alt="Recipe Photo" class="medPhoto"/>
+                    <img src="~/img/recipes/@Model.Photo" alt="Recipe Photo" class="medPhoto" />
                 }
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                <input type="hidden" name="CurrentPhoto" value="@Model.Photo" />
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>

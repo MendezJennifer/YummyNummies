@@ -94,3 +94,7 @@ body {
 .medPhoto {
     width: 400px;
 }
+/*Give padding to text*/
+.data-sm {
+    margin-top: 10px;
+}

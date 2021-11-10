@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using YummyNummies.Data;
 using YummyNummies.Models;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YummyNummies.Controllers
 {
+    [Authorize]
     public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -36,6 +38,7 @@ namespace YummyNummies.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -107,7 +110,7 @@ namespace YummyNummies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,UserId,CategoryId")] Recipe recipe, IFormFile Photo)
+        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Name,Rating,UserName,CookTime,Steps,UserId,CategoryId")] Recipe recipe, IFormFile Photo, string CurrentPhoto)
         {
             if (id != recipe.RecipeId)
             {
@@ -123,6 +126,11 @@ namespace YummyNummies.Controllers
                     {
                         var photoName = UploadPhoto(Photo);
                         recipe.Photo = photoName;
+                    }
+                    //If photo is not updated, keep current photo
+                    else
+                    {
+                        recipe.Photo = CurrentPhoto;
                     }
 
                     _context.Update(recipe);

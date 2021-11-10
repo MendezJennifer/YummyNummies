@@ -23,10 +23,12 @@ namespace YummyNummies.Models
         public int Rating { get; set; }
 
         //UserName Conditions: no empty strings
+        [Display(Name = "Username")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the username")]
         public string UserName { get; set; }
 
         //CookTime Conditions: required, rating between 0-9999
+        [Display(Name = "Cook Time")]
         [Required]
         [Range(0, 9999)]
         public int CookTime { get; set; }
@@ -40,10 +42,7 @@ namespace YummyNummies.Models
         public string Photo { get; set; }
 
         //Foreign key
-        [Required]
-        public string UserId { get; set; }
-
-        //Foreign key
+        [Display(Name = "Category")]
         [Required]
         public int CategoryId { get; set; }
 

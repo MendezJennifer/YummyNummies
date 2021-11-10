@@ -32,9 +32,32 @@ namespace YummyNummies
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>() //Enable role management
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            //Google Authorization
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    //Access Google Authorization of appsettings.json
+                    IConfigurationSection googleAuth = Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuth["ClientId"];
+                    options.ClientSecret = googleAuth["ClientSecret"];
+                });
+
+            //Facebook Authorization
+            services.AddAuthentication()
+                .AddFacebook(options =>
+                {
+                    //Access Facebook Authorization of appsettings.json
+                    IConfigurationSection facebookAuth = Configuration.GetSection("Authentication:Facebook");
+
+                    options.ClientId = facebookAuth["ClientId"];
+                    options.ClientSecret = facebookAuth["ClientSecret"];
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

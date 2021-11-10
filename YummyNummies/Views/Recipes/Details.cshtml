@@ -30,13 +30,13 @@
             @Html.DisplayNameFor(model => model.Rating)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
+            @Html.DisplayFor(model => model.Rating)/5
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CookTime)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CookTime)
+            @Html.DisplayFor(model => model.CookTime) mins
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
@@ -44,18 +44,16 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Category.Name)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
+        <!--Hide data unles user is logged in-->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Steps)
         </dt>
@@ -64,7 +62,11 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<!--Hide data unless user is logged in-->
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+}

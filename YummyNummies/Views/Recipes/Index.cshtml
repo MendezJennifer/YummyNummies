@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<YummyNummies.Models.Recipe>
 
 @{
-    ViewData["Title"] = "Recipes";
+    ViewData["Title"] = "My Recipes";
 }
 
-<h1>Recipes</h1>
+<h1>My Recipes</h1>
 
 <p>
     <a asp-action="Create">Add Recipe</a>
@@ -29,7 +29,9 @@
             <th>
                 <a href="#">Category</a>
             </th>
-            <th></th>
+            <th class="sorttable_nosort">
+                <!--CRUD Function Buttons (not sortable)-->
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -46,10 +48,10 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @Html.DisplayFor(modelItem => item.Rating)/5
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CookTime)
+                @Html.DisplayFor(modelItem => item.CookTime) mins
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)
