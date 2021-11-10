@@ -28,12 +28,14 @@ namespace YummyNummies.Controllers
         {
             var applicationDbContext = _context.Recipes.Include(r => r.Category).OrderBy(r => r.Name);
             
+            //filter recipes: only show the user's recipes
+            applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s=>s.UserName.Equals(User.Identity.Name));
             //Search Bar
             //If there is a searchInfo string, filter recipes
             if (!String.IsNullOrEmpty(SearchInfo))
             {
-                //Find all the recipes that contain the searchinfo string in the recipe name
-                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.Name.Contains(SearchInfo));
+                //Find all the recipes that contain the searchinfo string in the recipe name ANd match the user's id
+                applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s => s.Name.Contains(SearchInfo) && s.UserName.Equals(User.Identity.Name));
             }
             return View(await applicationDbContext.ToListAsync());
         }
