@@ -23,8 +23,8 @@
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <!--Take user ID and set it as the value for userId in the Recipe table-->
+                <input asp-for="UserName" class="form-control" value="@User.Identity.Name" type="hidden" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">

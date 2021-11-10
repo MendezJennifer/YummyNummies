@@ -30,6 +30,7 @@ namespace YummyNummies.Controllers
             
             //filter recipes: only show the user's recipes
             applicationDbContext = (IOrderedQueryable<Recipe>)applicationDbContext.Where(s=>s.UserName.Equals(User.Identity.Name));
+
             //Search Bar
             //If there is a searchInfo string, filter recipes
             if (!String.IsNullOrEmpty(SearchInfo))

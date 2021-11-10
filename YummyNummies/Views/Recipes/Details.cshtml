@@ -44,7 +44,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Category.Name)
         </dd>
-        <!--Hide data unles user is logged in-->
+        <!--Hide data unless user is logged in-->
         @if (User.Identity.IsAuthenticated)
         {
             <dt class="col-sm-2">
@@ -65,8 +65,13 @@
 <!--Hide data unless user is logged in-->
 @if (User.Identity.IsAuthenticated)
 {
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.RecipeId">Edit</a> |
-        <a asp-action="Index">Back to My Recipes</a>
-    </div>
+<div>
+        <!--If user created the recipe, let user edit it-->
+      @if(User.Identity.Name.Equals(Model.UserName))
+      {
+          <a asp-action="Edit" asp-route-id="@Model.RecipeId">| Edit</a>
+      }
+
+      <a asp-action="Index">| Back to My Recipes |</a>
+</div>
 }
