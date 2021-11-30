@@ -94,16 +94,16 @@ namespace YummyNummies.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var recipe = await _context.Recipes.FindAsync(id);
             if (recipe == null)
             {
-                return NotFound();
+                return View("404");
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", recipe.CategoryId);
-            return View(recipe);
+            return View("Edit Recipe",recipe);
         }
 
         // POST: Recipes/Edit/5

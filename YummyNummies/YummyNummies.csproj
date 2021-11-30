@@ -23,4 +23,8 @@
     <Folder Include="wwwroot\img\recipes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\img\404.jpg" />
+  </ItemGroup>
+
 </Project>

@@ -72,15 +72,15 @@ namespace YummyNummies.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var category = await _context.Categories.FindAsync(id);
             if (category == null)
             {
-                return NotFound();
+                return View("404");
             }
-            return View(category);
+            return View("Edit Category", category);
         }
 
         // POST: Categories/Edit/5

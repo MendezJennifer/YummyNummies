@@ -12,13 +12,14 @@ using System.Threading.Tasks;
 
 namespace YummyNummiesTests
 {
+    //Recipes Controller: Test Edit (GET)
     [TestClass]
     public class CategoriesControllerTests
     {
         //Class level variables
         private ApplicationDbContext _context;
-        CategoriesController controller;
-        List<Category> categories = new List<Category>();
+        RecipesController controller;
+        List<Recipe> recipes= new List<Recipe>();
 
         //Set up before each test
         [TestInitialize]
@@ -30,39 +31,62 @@ namespace YummyNummiesTests
                 .Options;
             _context = new ApplicationDbContext(options);
 
-            //Create fake categories for the database
-            categories.Add(new Category
+            //Create fake category for the database
+            var category = new Category
             {
-                CategoryId = 1111,
-                Name = "Test: Christmas Cookies",
+                CategoryId = 500,
+                Name = "Test: Category"
+            };
+            _context.Categories.Add(category);
+
+            //Create fake recipes for the database
+            recipes.Add(new Recipe
+            {
+                RecipeId=1111,
+                Name="Bad Potion",
+                Rating=5,
+                UserName="TheWickedWitch",
+                CookTime=99,
+                Steps= "1.- Collect ingredients. 2.- Drop in cauldron. 3.- Chant Spell 4.- Dance The Macarena 5.- Mix thoroughly 6.- Place curse on chosen individual",
+                CategoryId=500,
+                Category = category
             });
-            categories.Add(new Category
+            recipes.Add(new Recipe
             {
-                CategoryId = 2222,
-                Name = "Test: Halloween Potions",
+                RecipeId = 2222,
+                Name = "Love Potion",
+                Rating = 4,
+                UserName = "TheGoodWitch",
+                CookTime = 66,
+                Steps = "1.- Collect ingredients. 2.- Drop in cauldron. 3.- Chant Spell 4.- Dance Mambo No. 5 5.- Mix thoroughly 6.- Drop potion on chosen individual",
+                CategoryId = 500,
+                Category = category
             });
-            categories.Add(new Category
+            recipes.Add(new Recipe
             {
-                CategoryId = 3333,
-                Name = "Test: Birthday Cake",
+                RecipeId = 3333,
+                Name = "Sleep Potion",
+                Rating = 3,
+                UserName = "TheSleepyWitch",
+                CookTime = 77,
+                Steps = "1.- Collect ingredients. 2.- Drop in cauldron. 3.- Chant Spell 4.- Dance The Cha Cha Slide 5.- Mix thoroughly 6.- Feed potion to chosen individual",
+                CategoryId = 500,
+                Category = category
             });
 
             //Loop through the fake data
-            foreach (var category in categories)
+            foreach (var recipe in recipes)
             {
-                _context.Categories.Add(category);
+                _context.Recipes.Add(recipe);
             }
 
             //Add fake data to database
             _context.SaveChanges();
 
             //Instantiate controller (with database)
-            controller = new CategoriesController(_context);
+            controller = new RecipesController(_context);
 
         }
-            [TestMethod]
-        public void TestMethod1()
-        {
-        }
+
     }
 }
