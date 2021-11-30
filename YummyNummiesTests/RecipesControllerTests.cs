@@ -14,7 +14,7 @@ namespace YummyNummiesTests
 {
     //Recipes Controller: Test Edit (GET)
     [TestClass]
-    public class CategoriesControllerTests
+    public class RecipesControllerTests
     {
         //Class level variables
         private ApplicationDbContext _context;
@@ -35,7 +35,7 @@ namespace YummyNummiesTests
             var category = new Category
             {
                 CategoryId = 500,
-                Name = "Test: Category"
+                Name = "Test: Potions"
             };
             _context.Categories.Add(category);
 
@@ -43,7 +43,7 @@ namespace YummyNummiesTests
             recipes.Add(new Recipe
             {
                 RecipeId=1111,
-                Name="Bad Potion",
+                Name="Evil Potion",
                 Rating=5,
                 UserName="TheWickedWitch",
                 CookTime=99,
@@ -87,6 +87,63 @@ namespace YummyNummiesTests
             controller = new RecipesController(_context);
 
         }
+        // Edit (GET)
+        [TestMethod]
 
+        //Test if view loads
+        public void LoadsEditView()
+        {
+            // act 
+            var result = (ViewResult)controller.Edit(2222).Result;
+
+            // assert
+            Assert.AreEqual("Edit Recipe", result.ViewName);
+        }
+
+        [TestMethod]
+        //Test if view loads and has data
+        public void EditViewDataPopulated()
+        {
+            // act 
+            var result = (ViewResult)controller.Edit(3333).Result;
+
+            // assert
+            Assert.IsNotNull(result.ViewData["CategoryId"]);
+        }
+
+        [TestMethod]
+        //Test if view loads the correct data
+        public void EditValidIdLoadsRecipe()
+        {
+            // act
+            var result = (ViewResult)controller.Edit(2222).Result;
+
+            //assert
+            Assert.AreEqual(recipes[1], result.Model);
+        }
+
+
+
+        [TestMethod]
+        //Test if error view loads when given inexisting recipeID
+        public void EditInValidIdLoads404()
+        {
+            // act
+            var result = (ViewResult)controller.Edit(1000).Result;
+
+            // assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+
+        [TestMethod]
+        //Test if error view loads when given no recipeID
+        public void EditNullIdLoads404()
+        {
+            // act 
+            var result = (ViewResult)controller.Edit(null).Result;
+
+            // assert
+            Assert.AreEqual("404", result.ViewName);
+        }
     }
 }
